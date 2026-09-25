@@ -1,6 +1,6 @@
 {
   "name": "handoffprobe",
-  "version": "0.1.0",
+  "version": "0.4.0",
   "description": "Adversarial security testing for AI agent handoffs",
   "type": "module",
   "engines": {
@@ -19,14 +19,14 @@
   },
   "files": [
     "dist",
-    "fixtures/phase9/a2a-mcp-crossing-v2"
+    "DISCLOSURE"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm run secret:check && npm test && npm run build",
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.build.json",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run secret:check && npm run compatibility:check && npm test && npm run build",
     "dev": "tsx src/cli.ts",
-    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\" \"scripts/**/*.ts\" \".github/workflows/*.yml\" action.yml package.json tsconfig.json tsconfig.build.json eslint.config.mjs .prettierrc.json",
-    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\" \"scripts/**/*.ts\" \".github/workflows/*.yml\" action.yml package.json tsconfig.json tsconfig.build.json eslint.config.mjs .prettierrc.json",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\" \"scripts/**/*.ts\" \".github/workflows/*.yml\" action.yml compatibility-matrix.json package.json tsconfig.json tsconfig.build.json eslint.config.mjs .prettierrc.json",
+    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\" \"scripts/**/*.ts\" \".github/workflows/*.yml\" action.yml compatibility-matrix.json package.json tsconfig.json tsconfig.build.json eslint.config.mjs .prettierrc.json",
     "lint": "eslint \"src/**/*.ts\" \"tests/**/*.ts\" \"scripts/**/*.ts\"",
     "package:check": "npm pack --dry-run",
     "start": "node dist/cli.js",
@@ -35,15 +35,18 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lab:protocol": "tsx src/protocol-lab/run.ts",
     "secret:check": "tsx scripts/secret-safety.ts",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "compatibility:check": "tsx scripts/compatibility-matrix-check.ts"
   },
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/express": "5.0.6",
     "@types/node": "24.13.3",
+    "@types/pdfkit": "0.17.6",
     "eslint": "10.9.0",
-    "prettier": "3.9.6",
-    "tsx": "4.23.12",
+    "pdfkit": "0.20.2",
+    "prettier": "3.9.8",
+    "tsx": "4.23.13",
     "typescript": "6.0.3",
     "typescript-eslint": "8.67.0",
     "vitest": "4.1.11"
@@ -53,7 +56,7 @@
     "@modelcontextprotocol/client": "2.0.0",
     "@modelcontextprotocol/server": "2.0.0",
     "express": "5.2.1",
-    "zod": "4.4.3"
+    "zod": "4.6.5"
   },
   "repository": {
     "type": "git",
@@ -62,7 +65,7 @@
   "bugs": {
     "url": "https://github.com/Heaviside479/handoffprobe/issues"
   },
-  "homepage": "https://github.com/Heaviside479/handoffprobe#readme",
+  "homepage": "https://handoffprobe.heaviside-solutions.com",
   "keywords": [
     "a2a",
     "mcp",
@@ -74,5 +77,8 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "contentPolicy": {
+    "class": "dual-use"
   }
 }

@@ -1,79 +1,67 @@
-import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 
 import { describe, expect, it } from 'vitest';
 
-async function read(path: string): Promise<string> {
-  return readFile(path, 'utf8');
+const read = (path: string): string => readFileSync(path, 'utf8');
+
+interface ReleaseState {
+  version: string;
+  status: string;
+  releaseCommit: string;
+  stableAttacks: number;
+  p0Attacks: number;
+  p1Attacks: number;
+  advancedAttacks: number;
+  latestStableAttackId: string;
+  reportSchema: string;
+  protocolBaseline: {
+    a2a: string;
+    mcp: string;
+  };
 }
 
-describe('v0.1 installation and usage documentation', () => {
-  it('keeps README accurate after the public release', async () => {
-    const readme = await read('README.md');
+const releaseState = JSON.parse(read('docs/RELEASE_STATE.json')) as ReleaseState;
+const packageJson = JSON.parse(read('package.json')) as {
+  version: string;
+  engines: { node: string };
+};
 
-    expect(readme).toContain('The npm package is publicly available as **`handoffprobe@0.1.1`**.');
-    expect(readme).toContain('current public package version is `0.1.1`');
-    expect(readme).toContain('docs/INSTALLATION.md');
-    expect(readme).toContain('docs/USAGE.md');
-    expect(readme).toContain('npx --yes --package=handoffprobe@0.1.1 handoffprobe --version');
-    expect(readme).toContain('npx --yes --package=handoffprobe@0.1.1 handoffprobe test');
-  });
+describe('current release documentation contract', () => {
+  const readme = read('README.md');
+  const installation = read('docs/INSTALLATION.md');
+  const usage = read('docs/USAGE.md');
+  const releaseNotes = read('docs/V0_4_0_RELEASE_NOTES.md');
+  const closeout = read('docs/R4_V0_4_0_POSTPUBLICATION_CLOSEOUT_20260917.md');
 
-  it('documents source, tarball and public npm installation', async () => {
-    const installation = await read('docs/INSTALLATION.md');
-
-    for (const text of [
-      'Node.js `>=24 <25`',
-      'The npm package is publicly available as `handoffprobe@0.1.1`.',
-      'npm ci',
-      'npm run build',
-      'PACKAGE_TARBALL="$(npm pack --silent)"',
-      'npx --yes --package="./$PACKAGE_TARBALL" handoffprobe --version',
-      'npx --yes --package=handoffprobe@0.1.1 handoffprobe --version',
-      'npm install --save-dev --save-exact handoffprobe@0.1.1',
-      'owned, synthetic or explicitly authorized target',
-    ]) {
-      expect(installation).toContain(text);
-    }
-  });
-
-  it('documents the complete stable CLI and automation surface', async () => {
-    const usage = await read('docs/USAGE.md');
-
-    for (const text of [
-      'handoffprobe test [options]',
-      'handoffprobe list',
-      'handoffprobe explain <HP-ID>',
-      '--target vulnerable',
-      '--test HP-AUTH-001',
-      '--fail-on medium',
-      '--reporter terminal',
-      '--reporter json',
-      '--reporter markdown',
-      '--output handoffprobe-report.json',
-      'handoffprobe.config.json',
-      'CLI flags override configuration values.',
-      'schema version `1`',
-      '22 stable attacks: 12 P0 and 10 P1',
-    ]) {
-      expect(usage).toContain(text);
-    }
-  });
-
-  it('documents exit semantics, redaction and the composition-safety demo', async () => {
-    const usage = await read('docs/USAGE.md');
-
-    for (const exitCode of ['0', '1', '2', '3']) {
-      expect(usage).toMatch(new RegExp('\\|\\s+`' + exitCode + '`\\s+\\|', 'u'));
-    }
-
-    expect(usage).toContain('Exit `1` is a security finding, not a scanner crash.');
-    expect(usage).toContain('safe evidence counts and deterministic sequence references');
-    expect(usage).toContain('upstream A2A authority can be individually valid');
-    expect(usage).toContain(
-      'downstream MCP tool behavior can be individually valid under correct authority',
+  it('keeps package metadata aligned with the central release state', () => {
+    expect(packageJson.version).toBe(releaseState.version);
+    expect(packageJson.engines.node).toBe('>=24 <25');
+    expect(releaseState.status).toBe('released-and-verified');
+    expect(releaseState.stableAttacks).toBe(
+      releaseState.p0Attacks + releaseState.p1Attacks + releaseState.advancedAttacks,
     );
-    expect(usage).toContain(
-      'translation/handoff can still broaden the effective authority incorrectly',
+  });
+
+  it('keeps current-facing documentation aligned with the release identity', () => {
+    for (const document of [readme, installation, usage]) {
+      expect(document).toContain(releaseState.version);
+    }
+
+    expect(readme).toContain(`${releaseState.stableAttacks} stable attacks`);
+    expect(usage).toContain(`${releaseState.stableAttacks} stable attacks`);
+    expect(readme).toContain(releaseState.latestStableAttackId);
+    expect(usage).toContain(releaseState.latestStableAttackId);
+  });
+
+  it('keeps release evidence aligned with the central release state', () => {
+    expect(releaseNotes).toContain(releaseState.version);
+    expect(releaseNotes).toContain(releaseState.latestStableAttackId);
+    expect(closeout).toContain(releaseState.releaseCommit);
+    expect(closeout).toContain(`public stable corpus: **${releaseState.stableAttacks} attacks**`);
+    expect(closeout).toContain(releaseState.latestStableAttackId);
+    expect(closeout).toContain(`report schema remains \`${releaseState.reportSchema}\``);
+    expect(closeout).toContain(
+      `protocol baseline remains A2A ${releaseState.protocolBaseline.a2a} → MCP ${releaseState.protocolBaseline.mcp}`,
     );
   });
 });

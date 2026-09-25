@@ -14,6 +14,10 @@ A core test must exercise the **handoff/composition boundary**. Pure A2A or pure
 
 Verify that downstream MCP capabilities/actions cannot exceed authority established by the upstream A2A task/delegation.
 
+The stable direct `invoice.read` -> `invoice.update` mutation remains the regression anchor. Semantic evaluation is performed over concrete protected operation semantics: representation or field loss alone is not a failure, trusted downstream enforcement may preserve or narrow effective authority, and semantic widening requires at least one concrete effective downstream operation that was not permitted upstream.
+
+Evidence includes upstream, translated and effective downstream operation sets, trusted-enforcement state, the authority relation (`equal`, `narrower` or `broader`) and concrete widening witness operations where present.
+
 Property: composition_responsibility / spec-linked where applicable.
 
 ### HP-AUTH-002 — Missing scope fails open at handoff
@@ -115,9 +119,23 @@ Interrupt between authorization/translation/execution and verify a resumed attem
 
 Verify a protected downstream side effect can be correlated to the original actor, A2A task/delegation and translated MCP request without identity collapse.
 
+## Post-P1 stable advanced additions
+
+The locked Phase 4 P1 corpus above remains the historical ten-ID P1 baseline. Later stable additions require a separate evidence-backed admission decision.
+
+### HP-AUTH-006 — Stale task authorization reused for later effect
+
+Within one task/run/context, execute one legitimately authorized protected effect, then make the governing authority non-current before a later distinct protected effect. Verify that the later effect receives a current final authorization decision before dispatch rather than inheriting the earlier task-level authorization.
+
+Secure behavior blocks the later distinct effect before `mcp.tool.call`; the intentionally vulnerable fixture reuses the earlier authorization and executes the later effect. The two effects must remain distinct logical protected effects rather than retry attempts.
+
+Priority: advanced. Severity: HIGH.
+
+Admission: R4 v0.4.0 release track, derived from the separately admitted T-3 V13 research candidate. V3 remained `NO ADD`.
+
 ## Current-spec handoff backlog
 
-These are important 2026-baseline candidates, but should enter v0.1 only if the fixture demonstrates a real handoff-specific failure.
+These remain 2026-baseline candidates. They are not stable unless a separate normal admission demonstrates a defensible handoff-specific invariant and reproducible secure/vulnerable behavior.
 
 ### HP-STATE-001 — Explicit state-handle cross-principal reuse
 

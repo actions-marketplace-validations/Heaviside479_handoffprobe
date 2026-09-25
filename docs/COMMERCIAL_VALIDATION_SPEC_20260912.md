@@ -1,0 +1,617 @@
+# HandoffProbe Commercial Validation Specification
+
+Status: active  
+Decision date: 2026-09-12  
+Owner: Heaviside Solutions
+
+## 1. Decision
+
+HandoffProbe starts commercial validation now, in parallel with continued open-source adoption and technical development.
+
+The open-source Core remains free and useful under Apache-2.0. The first revenue path is not a paid CLI or a speculative SaaS layer. It is a high-value, authorized service built around applying HandoffProbe to real agent handoffs.
+
+The initial commercial product is the **HandoffProbe Founding Security Assessment**.
+
+The commercial web presence will use:
+
+`https://handoffprobe.heaviside-solutions.com`
+
+The primary conversion page will be:
+
+`https://handoffprobe.heaviside-solutions.com/security-assessment`
+
+The subdomain is the long-term HandoffProbe product/commercial surface. GitHub and npm remain the canonical open-source code, package and technical-documentation surfaces.
+
+## 2. Commercial principle
+
+Monetize expertise, application, evidence, adapters and organization-specific work without weakening the open-source Core.
+
+Do not introduce artificial limitations into the free scanner merely to force payment.
+
+Do not build HandoffProbe Cloud before repeated organization-level demand exists.
+
+Commercial validation may run before v1.0 because the service is scoped professional work around the current public Core, not a claim that HandoffProbe has reached GA maturity.
+
+## 3. Primary offer — Founding Security Assessment
+
+### Launch price
+
+**EUR 1,490** for each of the first **3 accepted assessments**.
+
+This is a validation price, not a permanent price promise.
+
+After the first three paid assessments, review actual delivery effort, buyer objections, scope quality, conversion and follow-on demand before setting the standard price.
+
+Working post-validation target: **EUR 2,490** for the same standard scope if delivery economics support it.
+
+### Standard scope
+
+One clearly defined, authorized agent / tool handoff boundary.
+
+Examples may include a flow such as:
+
+`Agent A -> A2A -> Agent B / translation layer -> MCP -> Tool`
+
+The exact assessment scope must be accepted in writing before payment and testing.
+
+### Included
+
+- review of the submitted architecture and handoff boundary;
+- mapping of the agreed boundary to relevant HandoffProbe test classes;
+- relevant deterministic HandoffProbe testing against an authorized test surface;
+- manual analysis of handoff/composition-specific behavior;
+- evidence-backed findings;
+- severity classification;
+- technical remediation guidance;
+- detailed written assessment report;
+- one remediation retest within the agreed scope;
+- asynchronous communication by email.
+
+### Delivery format
+
+There is **no mandatory sales call and no mandatory results call**.
+
+The default experience is asynchronous.
+
+The customer receives a detailed written result package, normally including:
+
+- PDF assessment report;
+- Markdown assessment report;
+- optional safe machine-readable HandoffProbe JSON output where appropriate.
+
+The written report should contain:
+
+1. executive summary;
+2. agreed scope and explicit out-of-scope boundaries;
+3. architecture / handoff description;
+4. protocol and relevant implementation versions;
+5. test coverage;
+6. findings with severity;
+7. reproducible evidence where safe and appropriate;
+8. technical remediation guidance;
+9. prioritized remediation summary;
+10. retest result after the included retest is used.
+
+A finding should be understandable and actionable without requiring a meeting.
+
+### Delivery target
+
+Initial working target: **within 5 business days after payment and after all agreed test prerequisites are available**.
+
+Do not promise a shorter SLA until real delivery data exists.
+
+## 4. Assessment guardrails
+
+Every commercial assessment is limited to systems the customer owns or is explicitly authorized to test.
+
+The request flow must include an explicit authorization confirmation.
+
+Do not request secrets through the public website form.
+
+The website must warn customers not to submit passwords, API keys, tokens, private keys or undisclosed vulnerabilities through the ordinary intake form.
+
+Testing scope and any required access mechanism must be agreed separately and handled according to appropriate security practices.
+
+The assessment is not:
+
+- a certification;
+- a guarantee that the full AI system is secure;
+- a complete penetration test of unrelated infrastructure;
+- permission to test third-party systems;
+- a universal AI-security audit;
+- a claim that passing individual checks proves total security.
+
+Public wording should describe it as a **security assessment of the agreed agent-handoff scope**.
+
+## 5. Commercial site — minimum launch surface
+
+Launch the commercial site quickly. Do not build a dashboard, customer account system or SaaS application for this phase.
+
+### `/`
+
+Purpose: HandoffProbe product and trust surface.
+
+Primary positioning:
+
+> **Handoffs are trust boundaries.**  
+> Test whether your agent security guarantees survive the handoff.
+
+Core proof points may include current verified release truth such as:
+
+- 22 stable attacks;
+- Apache-2.0;
+- A2A 1.0 -> MCP 2026-07-28 current public baseline;
+- CI / GitHub Action support;
+- local-first;
+- no paid AI service required for Core;
+- no signup required for Core.
+
+Primary actions:
+
+- `Run HandoffProbe free` -> npm / GitHub path;
+- `Get a Security Assessment` -> `/security-assessment`.
+
+### `/security-assessment`
+
+Purpose: revenue conversion page.
+
+Hero direction:
+
+> **HandoffProbe Security Assessment**  
+> Find out whether security guarantees survive your real agent handoffs.
+
+Supporting message:
+
+> We assess an authorized agent or tool handoff using HandoffProbe and provide a detailed written security assessment with reproducible evidence and remediation guidance. Fully asynchronous. No mandatory meeting required.
+
+The launch page must show the Founding Assessment price clearly:
+
+**EUR 1,490 — first 3 accepted assessments**
+
+It must clearly list the included scope and the written-delivery model.
+
+Primary CTA:
+
+`Request an Assessment`
+
+Supporting trust statement:
+
+`Payment is requested only after the scope has been reviewed and accepted.`
+
+### `/security-assessment/received`
+
+Purpose: confirmation after intake submission.
+
+Required message:
+
+- request received;
+- scope will be reviewed;
+- response will arrive by email;
+- accepted requests receive confirmed scope, delivery estimate and payment instructions;
+- no meeting is required by default.
+
+## 6. Assessment intake
+
+Keep the public request form short enough to convert while gathering enough information for scope qualification.
+
+Required fields:
+
+- name;
+- work email;
+- company / organization;
+- agent or framework stack;
+- handoff / protocol path;
+- short description of what should be assessed;
+- environment type (local, staging or other authorized test environment);
+- explicit authorization checkbox confirming ownership or permission to test.
+
+Optional:
+
+- public repository or architecture-documentation link if safe to share.
+
+The form must state:
+
+`Do not submit passwords, API keys, tokens, private keys or other secrets through this form.`
+
+No phone number is required.
+
+No calendar booking is required.
+
+## 7. Qualification and payment flow
+
+The initial sales flow is intentionally human-reviewed and low-infrastructure:
+
+1. request submitted;
+2. Heaviside Solutions reviews product fit, authorization and scope clarity;
+3. if suitable, customer receives a written scope confirmation by email;
+4. email states the exact boundary, price, prerequisites and delivery estimate;
+5. customer receives a secure Stripe payment link only after scope acceptance;
+6. standard Founding Assessment is paid **100% before assessment work begins**;
+7. testing and analysis are completed;
+8. written report package is delivered by email;
+9. customer may implement remediation;
+10. one included retest is performed and documented;
+11. relevant follow-on work may be offered only when there is a real need.
+
+Do not build automated quoting, subscription billing or customer accounts for the first validation customers.
+
+### Payment, cancellation and refund handling
+
+The Founding Security Assessment uses a one-time Stripe payment only after the exact assessment scope has been accepted in writing.
+
+Operational rules for the validation phase:
+
+- the standard Founding Assessment price is EUR 1,490 for each of the first 3 accepted assessments;
+- payment is requested only after written scope acceptance;
+- the agreed assessment fee is paid 100% before assessment work begins;
+- no subscription, recurring billing or automatic renewal is used;
+- do not save a payment method for automatic follow-on charges;
+- no standing public HandoffProbe payment link is created in advance;
+- when the first suitable customer has accepted the exact scope in writing, create a customer-specific Stripe Payment Link just in time;
+- that link should be limited to one completed payment and must not be published on the public website or sent before scope acceptance;
+- if the customer cancels before assessment work begins, the assessment payment is refunded in full;
+- after assessment work has begun, there is no automatic full-refund entitlement for customer-requested cancellation; any refund is limited to agreed work that has not been delivered;
+- if Heaviside Solutions cannot deliver an agreed part of the paid assessment, the undelivered portion must be refunded or otherwise resolved with the customer in writing;
+- payment is for performing the agreed assessment work and written deliverables, not for producing a particular number, severity or type of finding;
+- scope extensions, additional boundaries or additional retests require separate written agreement before any additional payment is requested;
+- refunds and cancellations must be recorded alongside the assessment's commercial validation record.
+
+For the first validation customers, keep payment handling human-reviewed. Do not automate refunds, upsells, renewals or post-assessment charges.
+
+## 8. Secondary paid offers
+
+These are valid follow-on offers, but the Founding Security Assessment remains the primary conversion product at launch.
+
+### Custom Adapter
+
+Working launch anchor: **from EUR 1,500**.
+
+Use for proprietary or currently unsupported integration surfaces where there is a legitimate HandoffProbe-specific boundary and the work does not distort Core scope.
+
+### Private Test Pack
+
+Working launch anchor: **from EUR 1,500**.
+
+Use for organization-specific handoff invariants and regression cases.
+
+### Extended Assessment
+
+Custom quote for multiple handoff boundaries or materially more complex scope.
+
+Working pricing hypotheses after standard-scope validation:
+
+- additional agreed handoff boundary: approximately **+ EUR 750**;
+- additional retest beyond the included retest: approximately **+ EUR 390**.
+
+These are hypotheses to validate, not permanent public commitments.
+
+Do not offer express delivery until normal delivery effort is measured.
+
+## 9. Written report quality bar
+
+The report is part of the paid product, not an afterthought.
+
+Each finding should include, where applicable:
+
+- finding identifier;
+- severity;
+- affected handoff boundary;
+- expected security invariant;
+- observed behavior;
+- evidence summary;
+- safe reproduction information;
+- security impact within scope;
+- recommended remediation;
+- retest state when applicable.
+
+The report must clearly distinguish:
+
+- PASS / expected behavior;
+- security FAIL / observed invariant failure;
+- scanner or environment ERROR;
+- limitations and untested surfaces.
+
+Never turn scanner/runtime ERROR into a vulnerability claim.
+
+## 10. Distribution funnel
+
+Primary funnel:
+
+```text
+GitHub / npm / Peerlist / AlternativeTo / technical discussions
+                         |
+                         v
+        handoffprobe.heaviside-solutions.com
+                         |
+                         v
+             Security Assessment page
+                         |
+                         v
+                  Request form
+                         |
+                         v
+              Qualified written scope
+                         |
+                         v
+               Stripe payment link
+                         |
+                         v
+                  Paid assessment
+                         |
+                         v
+              Written report + retest
+                         |
+                         v
+     Adapter / private pack / extended work if needed
+```
+
+GitHub and npm commercial CTAs should point to the assessment page once the subdomain and intake flow are live.
+
+Use source-aware URLs / UTMs where practical so the origin of qualified demand can be measured.
+
+Do not force commercial links into unrelated technical conversations.
+
+## 11. GitHub and npm conversion updates
+
+After the assessment page is live and tested:
+
+- update the README commercial-support section to point directly to the assessment page;
+- retain GitHub as the canonical source repository;
+- retain npm as the canonical package/install surface;
+- make the commercial path visible without weakening the open-source positioning;
+- update npm-visible README copy through the normal package/release process only when appropriate;
+- do not republish an npm version solely to change a marketing link unless release policy justifies it.
+
+Preferred CTA concept:
+
+> Need help testing a real agent system? Heaviside Solutions offers authorized HandoffProbe Security Assessments with evidence-backed findings, detailed written remediation guidance and one retest.
+
+Primary destination:
+
+`https://handoffprobe.heaviside-solutions.com/security-assessment`
+
+## 12. Analytics and commercial metrics
+
+Keep analytics focused on the revenue funnel.
+
+Desired events:
+
+- `assessment_page_view`;
+- `assessment_cta_click`;
+- `assessment_form_start`;
+- `assessment_form_submit`;
+- `assessment_scope_accepted`;
+- `assessment_payment_sent`;
+- `assessment_paid`;
+- `assessment_delivered`;
+- `assessment_retest_completed`.
+
+The most important commercial conversion is:
+
+`qualified assessment request -> accepted scope -> paid assessment`
+
+npm downloads, GitHub stars and directory views remain discovery/adoption signals, not revenue by themselves.
+
+## 13. Commercial validation work packages
+
+### CV-0 — contract freeze
+
+- [x] commercial direction selected;
+- [x] open-source Core remains free;
+- [x] service-first monetization selected;
+- [x] subdomain selected: `handoffprobe.heaviside-solutions.com`;
+- [x] asynchronous written-results model selected;
+- [x] Founding Assessment price hypothesis selected: EUR 1,490 for first 3 accepted assessments;
+- [x] no mandatory call requirement;
+- [x] one included retest selected;
+- [x] no SaaS build required for launch.
+
+### CV-1 — commercial web launch
+
+Status: **COMPLETED 2026-09-12**
+
+- [x] decide the safest deployment/repository placement for the commercial site without contaminating the published npm/Core surface;
+- [x] configure Vercel project and `handoffprobe.heaviside-solutions.com` DNS;
+- [x] build `/`;
+- [x] build `/security-assessment`;
+- [x] build `/security-assessment/received`;
+- [x] implement responsive, accessible design;
+- [x] show current release truth only;
+- [x] include legal / privacy links appropriate for the intake flow;
+- [x] verify production SSL and canonical URLs.
+
+Completion evidence:
+
+- the commercial site is isolated in the separate private `Heaviside479/handoffprobe-site` repository, with no npm/Core build, dependency or release coupling;
+- Vercel and DNS are live at `https://handoffprobe.heaviside-solutions.com`;
+- the English launch routes `/`, `/security-assessment` and `/security-assessment/received` are live;
+- German equivalents are live at `/de`, `/de/security-assessment` and `/de/security-assessment/received`;
+- English/German canonical and `hreflang` metadata are live, while the received pages remain `noindex` and are excluded from the sitemap;
+- production HTTPS, SSL/HSTS behavior, `robots.txt`, sitemap and product icons were verified;
+- production deployment was verified from `handoffprobe-site` main commit `a1d7fa0fa4109f9099721a271314f40c7969bce4`;
+- public product claims remain aligned with HandoffProbe v0.2.0 release truth, including 22 stable attacks, Apache-2.0 and the A2A 1.0 → MCP 2026-07-28 public baseline;
+- legal and privacy links are present; the privacy notice was subsequently reviewed, updated and verified live before the CV-2 public form was activated.
+
+CV-1 is complete. CV-2 was completed separately on 2026-09-12.
+
+### CV-2 — intake and email path
+
+Status: **COMPLETED 2026-09-12**
+
+- [x] implement assessment request form;
+- [x] enforce required authorization confirmation;
+- [x] add no-secrets warning;
+- [x] route submissions to a controlled Heaviside Solutions inbox or approved backend;
+- [x] send customer confirmation email;
+- [x] test failure handling and spam/abuse controls;
+- [x] ensure sensitive disclosure is redirected to the existing security policy rather than ordinary intake.
+
+Completion evidence:
+
+- the bilingual English/German assessment request form is live at `/security-assessment` and `/de/security-assessment`;
+- the form collects the required qualification fields, requires explicit authorization confirmation and does not require a phone number or calendar booking;
+- the public flow warns against submitting passwords, API keys, tokens, private keys or other secrets;
+- ordinary assessment requests and replies are routed through `support@heaviside-solutions.com`, while security-sensitive disclosures continue to point to the Core `SECURITY.md` policy;
+- the server-side `/api/security-assessment` endpoint enforces same-origin requests, JSON input, body-size limits, field validation, authorization confirmation, safe public-link validation and likely-secret rejection;
+- abuse controls include a honeypot plus best-effort in-memory rate limiting; the rate limit is intentionally not described as a globally durable distributed control;
+- local failure-path verification covered invalid origin, invalid payload, likely-secret rejection, missing mail-service configuration and honeypot handling;
+- transactional delivery uses Resend through a production `RESEND_API_KEY` secret in the Vercel `handoffprobe-site` project;
+- a real production submission on 2026-09-12 returned HTTP 200 with the expected German confirmation redirect, and both the internal request email and customer confirmation email were independently verified as delivered;
+- the Heaviside Solutions privacy notice was updated and verified live before the public intake was activated, documenting the HandoffProbe assessment form, Vercel, Resend, the data categories, purpose and no-secrets guidance;
+- the final verified commercial-site production commit for CV-2 is `1084980e85d10e2ada0a6b5ce5fe0e4913db196c`.
+
+CV-2 is complete. CV-3 remains separate and has not started.
+
+### CV-3 — payment path
+
+Status: **PREPARED — live Stripe link deferred until first accepted customer**
+
+- [ ] create the Founding Assessment product/payment mechanism in Stripe when the first accepted scope is ready for payment;
+- [ ] create and send a manual secure payment link only after written scope acceptance;
+- [ ] collect 100% before standard assessment work begins;
+- [x] document payment/refund/cancellation handling before the first payment;
+- [x] do not add subscriptions or automatic recurring billing in this phase.
+
+Operational decision:
+
+- do not create a standing public payment link in advance;
+- Stripe setup is intentionally just-in-time because payment is only valid after human scope review and written acceptance;
+- the first real accepted assessment is the trigger to create the one-time EUR 1,490 payment mechanism and verify the live payment path;
+- CV-3 remains open until that first live payment mechanism has been created and verified.
+
+### CV-4 — report delivery system
+
+Status: **COMPLETE — synthetic end-to-end delivery verified 2026-09-13.**
+
+- [x] create a reusable written assessment report template;
+- [x] support PDF + Markdown delivery;
+- [x] define optional safe JSON attachment rules;
+- [x] define finding ID, severity, evidence, remediation and retest sections;
+- [x] define explicit scope / out-of-scope and limitations sections;
+- [x] test a synthetic end-to-end example before a customer delivery.
+
+Verification evidence:
+- the full repository check passes;
+- the commercial generator creates Markdown, PDF and allowlisted safe JSON from one reviewed assessment input;
+- customer working directories are gitignored;
+- the synthetic end-to-end delivery package was generated successfully;
+- the synthetic PDF was manually reviewed for readable layout and page flow.
+
+### CV-5 — distribution conversion
+
+Start CV-5 once CV-1 and CV-2 are live and verified, the CV-3 just-in-time payment path is documented and prepared, and CV-4 is complete.
+
+The live CV-3 Stripe mechanism remains intentionally deferred until the first suitable customer accepts the exact assessment scope in writing. That just-in-time trigger does not block pre-revenue distribution work:
+
+- [x] update GitHub README commercial CTA;
+- [x] update HandoffProbe project / portfolio links where appropriate;
+- [x] update future npm/release-visible commercial link through normal release discipline;
+
+Npm/release verification:
+- the already-published `handoffprobe@0.2.0` is not republished for a marketing-only change;
+- the current README contains the Founding Security Assessment CTA;
+- the verified package dry run includes that README while excluding commercial assessment internals;
+- the updated commercial link will therefore reach npm through the next normal package release.
+- [ ] use the subdomain as the product website in future directories where allowed;
+- [x] keep technical-community promotion value-first and non-spammy.
+
+Community-promotion verification:
+- value-first technical-community rules are documented in the central Marketing repository;
+- commercial CTAs are context-dependent rather than inserted into unrelated technical discussions;
+- OSS discovery remains separate from paid assessment intent;
+- CV-5 is not considered complete until the remaining directory/product-website item is verified.
+
+### CV-6 — first revenue validation
+
+Target: first **3 paid accepted assessments**.
+
+For each one record:
+
+- acquisition source;
+- request-to-qualification outcome;
+- objections / questions;
+- agreed handoff scope;
+- delivery effort;
+- testing effort;
+- report effort;
+- retest effort;
+- price acceptance;
+- requested follow-on work;
+- whether a repeated product need emerges.
+
+After three paid assessments, explicitly decide:
+
+- whether the standard price should move toward EUR 2,490;
+- whether scope should become narrower or broader;
+- whether Custom Adapter / Private Test Pack demand is real;
+- whether any repeatable onboarding or reporting work should be productized.
+
+## 14. Cloud / SaaS gate
+
+Do not build HandoffProbe Cloud merely because commercial validation has started.
+
+A hosted/team product becomes a serious product-development candidate only after repeated centralized-operation demand exists.
+
+Strong trigger examples:
+
+- **3 independent organizations** request materially the same centralized capability; or
+- **2 paying customers** request the same central feature and have a credible ongoing use case.
+
+Examples of qualifying demand:
+
+- centralized scan history;
+- scheduled scans across repositories;
+- organization policy management;
+- GitHub organization integration;
+- team evidence retention;
+- SSO / RBAC;
+- audit / compliance export needs.
+
+Until a gate is met, prefer services and the open-source Core over speculative Cloud work.
+
+## 15. Success criteria
+
+Commercial validation succeeds when HandoffProbe demonstrates real willingness to pay around the Core.
+
+Near-term success signals, in priority order:
+
+1. one qualified assessment request;
+2. one accepted written scope;
+3. first paid assessment;
+4. first completed written report and retest;
+5. three paid assessments;
+6. repeat or follow-on paid work;
+7. repeated organization-level demand that justifies a productized commercial layer.
+
+The first paid assessment is more commercially meaningful than a large number of unqualified page views.
+
+## 16. Explicit non-goals for this phase
+
+- paid CLI tier;
+- crippled Community Edition;
+- attack IDs hidden behind a generic paywall;
+- mandatory sales calls;
+- mandatory results calls;
+- customer dashboard;
+- user accounts;
+- recurring SaaS subscription;
+- automated quoting engine;
+- speculative SSO/RBAC;
+- broad generic AI-security consultancy positioning;
+- unauthorized third-party testing;
+- security certification claims;
+- guarantees that an assessed system is fully secure.
+
+## 17. Exit gate
+
+This commercial-validation specification is complete when:
+
+- the commercial subdomain and assessment conversion path are live;
+- the intake and authorization flow is verified;
+- a written scope can be accepted cleanly;
+- secure payment can be requested after scope acceptance;
+- the written report/retest delivery process is ready;
+- GitHub and other approved discovery surfaces can route qualified users into the funnel;
+- at least one real paid assessment has been completed, after which the plan is updated from measured delivery evidence.
+
+The broader Phase 13 commercial-validation gate remains: **real organizations demonstrate willingness to pay**.

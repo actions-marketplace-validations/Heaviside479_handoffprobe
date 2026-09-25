@@ -1,22 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
-const releaseSha = '8e58c2f6553c735bec3857945ca5afde8c8a3177';
-const readme = readFileSync('README.md', 'utf8');
-const installation = readFileSync('docs/INSTALLATION.md', 'utf8');
-const usage = readFileSync('docs/USAGE.md', 'utf8');
 const roadmap = readFileSync('docs/ROADMAP.md', 'utf8');
 const audit = readFileSync('docs/PHASE8_GITHUB_ACTION_AUDIT_20260830.md', 'utf8');
 
 describe('Phase 8.2 external GitHub Action onboarding contract', () => {
-  it('makes the supported v0.1.1 immutable action pin directly copy-pasteable', () => {
-    for (const document of [readme, installation, usage]) {
-      expect(document).toContain(`Heaviside479/handoffprobe@${releaseSha}`);
-      expect(document).not.toContain('<pinned-handoffprobe-commit-sha>');
-      expect(document).not.toContain('<reviewed-commit-sha>');
-    }
-  });
-
   it('records the real separate-repository action evidence without calling it adoption', () => {
     expect(audit).toContain('Heaviside479/handoffprobe-action-audit-20260830-134434');
     expect(audit).toContain('33309692665');

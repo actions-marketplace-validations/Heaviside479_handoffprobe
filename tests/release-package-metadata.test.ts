@@ -32,6 +32,9 @@ interface PackageManifest {
   publishConfig?: {
     access?: string;
   };
+  contentPolicy?: {
+    class?: string;
+  };
 }
 
 interface PackageLock {
@@ -60,12 +63,12 @@ async function readJson<T>(path: string): Promise<T> {
   return JSON.parse(await readFile(path, 'utf8')) as T;
 }
 
-describe('v0.1 package release metadata', () => {
+describe('v0.4 package release metadata', () => {
   it('locks the public npm identity and registry metadata', async () => {
     const manifest = await readJson<PackageManifest>('package.json');
 
     expect(manifest.name).toBe('handoffprobe');
-    expect(manifest.version).toBe('0.1.0');
+    expect(manifest.version).toBe('0.4.0');
     expect('private' in manifest).toBe(false);
     expect(manifest.description).toBe('Adversarial security testing for AI agent handoffs');
     expect(manifest.license).toBe('Apache-2.0');
@@ -76,10 +79,13 @@ describe('v0.1 package release metadata', () => {
     expect(manifest.bugs).toEqual({
       url: 'https://github.com/Heaviside479/handoffprobe/issues',
     });
-    expect(manifest.homepage).toBe('https://github.com/Heaviside479/handoffprobe#readme');
+    expect(manifest.homepage).toBe('https://handoffprobe.heaviside-solutions.com');
     expect(manifest.keywords).toEqual(EXPECTED_KEYWORDS);
     expect(manifest.publishConfig).toEqual({
       access: 'public',
+    });
+    expect(manifest.contentPolicy).toEqual({
+      class: 'dual-use',
     });
   });
 
@@ -99,22 +105,23 @@ describe('v0.1 package release metadata', () => {
         import: './dist/index.js',
       },
     });
-    expect(manifest.files).toEqual(['dist', 'fixtures/phase9/a2a-mcp-crossing-v2']);
+    expect(manifest.files).toEqual(['dist', 'DISCLOSURE']);
     expect(manifest.scripts?.prepack).toBe('npm run build');
+    expect(manifest.scripts?.['assessment:report']).toBeUndefined();
   });
 
   it('keeps package-lock release identity synchronized', async () => {
     const lock = await readJson<PackageLock>('package-lock.json');
 
     expect(lock.name).toBe('handoffprobe');
-    expect(lock.version).toBe('0.1.0');
+    expect(lock.version).toBe('0.4.0');
     expect(lock.packages?.['']?.name).toBe('handoffprobe');
-    expect(lock.packages?.['']?.version).toBe('0.1.0');
+    expect(lock.packages?.['']?.version).toBe('0.4.0');
   });
 
   it('keeps exported CLI identity synchronized with npm metadata', () => {
     expect(PRODUCT_NAME).toBe('HandoffProbe');
     expect(PACKAGE_NAME).toBe('handoffprobe');
-    expect(VERSION).toBe('0.1.0');
+    expect(VERSION).toBe('0.4.0');
   });
 });

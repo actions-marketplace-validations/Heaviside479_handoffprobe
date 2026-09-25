@@ -140,13 +140,19 @@ Phase 5 introduces `handoffprobe.config.json` in the current working directory.
 
 Absence of the file is valid.
 
-Initial keys:
+Configuration schema version `1` has these exact keys:
 
 - `target`
 - `tests`
 - `failOn`
 - `reporter`
 - `output`
+
+The v0.3.0 configuration file has no in-band `schemaVersion` property. Existing valid
+`handoffprobe.config.json` files are designated **config schema version `1`** by the
+release contract. Adding an in-band schema marker, a new allowed key, a changed value
+type or a changed value meaning requires an explicit compatibility decision before
+release.
 
 Supported reporters:
 
@@ -180,6 +186,9 @@ Color must not be required.
 ### JSON
 
 JSON output contains no prose outside the JSON document.
+
+The current machine-readable report contract is **report schema version `1`**.
+The canonical `schemaVersion` value is the string `"1"`.
 
 Initial top-level fields:
 
@@ -409,3 +418,25 @@ The implemented CLI baseline now satisfies this contract:
 
 The package remains at version `0.0.0` and is not publicly released on npm yet.
 Public npm publication is intentionally deferred to a later release phase.
+
+## 16. v0.4.0 stable-corpus extension — 2026-09-16
+
+The Phase 5 completion record above is historical and remains a truthful record of the original 22-attack CLI baseline.
+
+A later evidence-backed R4 admission adds one stable advanced attack without changing the CLI command contract:
+
+- `HP-AUTH-006 — Stale task authorization reused for later effect`;
+- canonical v0.4.0 catalog: **23 stable attacks**;
+- composition: 12 P0 + 10 P1 + 1 advanced;
+- `handoffprobe list` exposes all 23 candidate stable IDs;
+- default `handoffprobe test` executes all 23;
+- bundled secure target produces 23 PASS findings;
+- bundled vulnerable target reproduces FAIL for all 23 stable checks;
+- `explain <HP-ID>`, selection, reporters, configuration and exit semantics remain unchanged;
+- report schema remains `1`;
+- A2A 1.0 → MCP 2026-07-28 remains the protocol baseline;
+- GitHub Action inputs/outputs remain unchanged and consume the same canonical execution catalog.
+
+The source/package release metadata is `0.4.0`. Registry-backed availability is not inferred from this specification; verify the exact npm package, immutable tag and GitHub Release on their corresponding public surfaces before use.
+
+Do not rewrite the historical Phase 5 22-attack completion record merely because the later stable corpus expanded.

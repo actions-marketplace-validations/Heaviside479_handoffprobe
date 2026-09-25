@@ -1,6 +1,6 @@
 # Usage
 
-HandoffProbe v0.1.1 is a deterministic defensive security CLI for A2A 1.0 → MCP 2026-07-28 handoffs.
+HandoffProbe v0.4.0 is a deterministic defensive security CLI for A2A 1.0 → MCP 2026-07-28 handoffs. Release metadata is synchronized at `0.4.0`; registry-backed availability must be verified independently as documented in [`INSTALLATION.md`](INSTALLATION.md).
 
 The examples below use the installed `handoffprobe` command. Install the exact public release as documented in [`INSTALLATION.md`](INSTALLATION.md), or use the exact-version public `npx` commands shown there for one-shot execution.
 
@@ -27,13 +27,13 @@ Expected high-level result:
 ```text
 Target: secure
 Protocols: A2A 1.0 | MCP 2026-07-28
-Selected attacks: 22
+Selected attacks: 23
 
 Summary:
-  PASS: 22
+  PASS: 23
   FAIL: 0
   ERROR: 0
-  TOTAL: 22
+  TOTAL: 23
 
 Security gate: PASS
 ```
@@ -56,13 +56,15 @@ The vulnerable demonstration exits `1` at the default `high` threshold.
 
 The bundled target is intentionally vulnerable synthetic test code. A failure here does not mean A2A or MCP is inherently insecure; it demonstrates a composition/integration invariant that the vulnerable handoff breaks.
 
+HandoffProbe v0.4.0 retains the v0.3.0 `HP-AUTH-001` semantic-authority behavior across upstream delegated authority, translated authority and effective downstream authority, and adds `HP-AUTH-006`. `HP-AUTH-006` verifies that successful authorization of an earlier protected effect does not authorize a later distinct protected effect after the governing authority becomes non-current; the later effect must receive current final authorization before dispatch.
+
 ## List stable attacks
 
 ```bash
 handoffprobe list
 ```
 
-v0.1.1 contains exactly 22 stable attacks: 12 P0 and 10 P1.
+HandoffProbe v0.4.0 contains exactly 23 stable attacks: 12 P0, 10 P1 and 1 additional advanced attack (`HP-AUTH-006`). Phase 9 crossing-corpus cases remain research/conformance cases and do not become additional stable `HP-*` attacks.
 
 ## Explain an attack
 
@@ -214,7 +216,7 @@ Exit `1` is a security finding, not a scanner crash.
 handoffprobe test   --target secure   --reporter json   --output handoffprobe-report.json
 ```
 
-The v0.1 report uses schema version `1`.
+HandoffProbe v0.4.0 preserves report schema version `1`.
 
 The report contains:
 
@@ -275,18 +277,18 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: Heaviside479/handoffprobe@8e58c2f6553c735bec3857945ca5afde8c8a3177
+      - uses: Heaviside479/handoffprobe@8ffdbec95e8ebe6fe1db1f3c2151d571461d596d
         with:
           target: secure
           fail-on: high
           artifact-name: handoffprobe-report
 ```
 
-The revision above is the reviewed immutable commit for HandoffProbe v0.1.1 and preserves the strongest supply-chain pinning model.
+The revision above is the reviewed exact v0.4.0 release commit and preserves the strongest verified supply-chain pinning model. Both `v0.4.0` and `8ffdbec95e8ebe6fe1db1f3c2151d571461d596d` were verified after publication from a separate consumer repository.
 
 ## Reproducible public demo
 
-The primary v0.1 demonstration is below:
+The long-standing `HP-AUTH-001` scenario remains a compatible demonstration across v0.3.0 and v0.4.0:
 
 ```bash
 handoffprobe test --target vulnerable --test HP-AUTH-001
@@ -305,6 +307,14 @@ Compare it with the secure control:
 handoffprobe test --target secure --test HP-AUTH-001
 ```
 
+HandoffProbe v0.4.0 additionally exposes the newly admitted stable advanced check:
+
+```bash
+handoffprobe test --target vulnerable --test HP-AUTH-006
+```
+
+Its secure fixture authorizes effect A, makes the governing authority non-current, and blocks distinct effect B before dispatch. The intentionally vulnerable fixture reuses the earlier task-level authorization and executes effect B, producing a deterministic FAIL.
+
 ## Safety boundary
 
 Use HandoffProbe only against:
@@ -314,11 +324,15 @@ Use HandoffProbe only against:
 - staging/test environments you control;
 - targets for which you have explicit authorization.
 
-HandoffProbe v0.1.1 is not a generic internet scanner, runtime firewall or authorization provider.
+Neither HandoffProbe v0.4.0 nor the historical v0.3.0 release is a generic internet scanner, runtime firewall or authorization provider.
 
 ## More documentation
 
 - [`INSTALLATION.md`](INSTALLATION.md) — installation and public package execution
+- [`UPGRADING.md`](UPGRADING.md) — safe version updates and verification
+- [`MIGRATION.md`](MIGRATION.md) — public-contract migration guidance
+- [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) — CLI, configuration and CI troubleshooting
+- [`FAQ.md`](FAQ.md) — common product and usage questions
 - [`ATTACK_CATALOG.md`](ATTACK_CATALOG.md) — stable attack catalog
 - [`CLI_SPECIFICATION.md`](CLI_SPECIFICATION.md) — CLI contract
 - [`GITHUB_INTEGRATION_SPECIFICATION.md`](GITHUB_INTEGRATION_SPECIFICATION.md) — action and CI contract
